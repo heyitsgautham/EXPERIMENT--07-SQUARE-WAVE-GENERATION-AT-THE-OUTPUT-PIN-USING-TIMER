@@ -1,3 +1,5 @@
+# EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER
+
 ### Aim:
 To generate a PWM wave at the timer pin output and  simuate it on  proteus using an virtual oscilloscope  
 
@@ -44,20 +46,35 @@ In normal settings, assuming you’re using the timer module in PWM mode and gen
 
 ## Procedure:
 Step1: Open CubeMX & Create New Project
+ ![image](https://user-images.githubusercontent.com/36288975/226189166-ac10578c-c059-40e7-8b80-9f84f64bf088.png)
+
 
 Step2: Choose The Target MCU & Double-Click Its Name select the target to be programmed  as shown below and click on next 
 
+ ![image](https://user-images.githubusercontent.com/36288975/226189215-2d13ebfb-507f-44fc-b772-02232e97c0e3.png)
+![image](https://user-images.githubusercontent.com/36288975/226189230-bf2d90dd-9695-4aaf-b2a6-6d66454e81fc.png)
+
+![image](https://user-images.githubusercontent.com/36288975/226189280-ed5dcf1d-dd8d-43ae-815d-491085f4863b.png)
+
 Step3: Configure Timer2 Peripheral To Operate In PWM Mode With CH1 Output
+![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/682c851a-7dfe-4089-8395-f76088d43896)
+
 
 Step4: Set The RCC External Clock Source
+![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/8888af3b-63e2-4760-a51b-17b477763941)
+
 
 STM32 RCC External Clock Selection CubeMX
 
 Step5: Go To The Clock Configuration
 
 Step6: Set The System Clock To Be 72MHz
+![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/4ea03faa-fb90-4b31-8079-3db5f959f2c3)
+
 
 Step7: Name & Generate The Project Initialization Code For CubeIDE or The IDE You’re Using
+
+
 
 Step8.  Creating Proteus project and running the simulation
 We are now at the last part of step by step guide on how to simulate STM32 project in Proteus.
@@ -65,42 +82,148 @@ We are now at the last part of step by step guide on how to simulate STM32 proje
 Step9. Create a new Proteus project and place STM32F40xx i.e. the same MCU for which the project was created in STM32Cube IDE. 
 14. After creation of the circuit as per requirement as shown below 
 
+ ![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/4f377f5e-bdda-489e-a416-c712c893831d)
+
 Step10. Double click on the the MCU part to open settings. Next to the Program File option, give full path to the Hex file generated using STM32Cube IDE. Then set the external crystal frequency to 8M (i.e. 8 MHz). Click OK to save the changes.
 
  
 Step14. click on debug and simulate using simulation as shown below 
+ ![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/b8efbfc2-f0c5-4106-8117-3a6e7ac87f6c)
+``` 
+Name:Vinush CV
+Reg no: 212222230176
+```
+ 
 
 ## STM 32 CUBE PROGRAM :
-```c
+
+```
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2024 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim2;
 
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
+/* USER CODE BEGIN PFP */
 
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
+
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
   SystemClock_Config();
 
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
+  /* USER CODE BEGIN 2 */
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
   HAL_TIM_Base_Start(&htim2);
-  HAL_TIM_PWM_Init(&htim2);
-  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+      HAL_TIM_PWM_Init(&htim2);
+      HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   while (1)
   {
-  }
+    /* USER CODE END WHILE */
 
+    /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
 }
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Configure the main internal regulator output voltage
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -109,6 +232,9 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -122,26 +248,30 @@ void SystemClock_Config(void)
   }
 }
 
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_TIM2_Init(void)
 {
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 1000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
   if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -153,72 +283,146 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 500;
+  sConfigOC.Pulse = 900;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
   HAL_TIM_MspPostInit(&htim2);
 
 }
 
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_GPIO_Init(void)
 {
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
+
+  /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
   {
   }
-  
+  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
-
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
 }
+#endif /* USE_FULL_ASSERT */
 ```
 ## Output screen shots of proteus  :
+ ![Screenshot 2024-10-30 092543](https://github.com/user-attachments/assets/48bf4a42-bde0-4489-b65f-d406ada862ab)
+
  
- ![image](https://github.com/user-attachments/assets/c8fdb444-7305-471d-a7af-e45b2d2f960e)
-![image](https://github.com/user-attachments/assets/5db86739-4800-45c2-a7ce-f5a6095e01ee)
-![image](https://github.com/user-attachments/assets/70a8b28b-04fb-4e40-a081-c56752eb33c5)
-![image](https://github.com/user-attachments/assets/bd6652a5-73b8-4634-bc56-3e6cbc65e968)
-
-
  ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
- ![image](https://github.com/user-attachments/assets/423b0d51-e314-490e-ade7-3ea13f24ff99)
+ 
+ ![Screenshot 2024-11-06 194834](https://github.com/user-attachments/assets/f7d9fab6-5bc0-497e-8df5-95672fcb5918)
 
 
 ## DUTY CYCLE AND FREQUENCY CALCULATION 
-FOR PULSE AT 500
-
-TON = 2.5ms
-TOFF=2.5ms
-TOTAL TIME = 5ms
-FREQUENCY = 1/(5*10^-3)= 200Hz
-
-FOR PULSE AT 600
-
-TON = 3ms
-TOFF= 2ms
-TOTAL TIME = 5ms
-FREQUENCY = 1/(TOTAL TIME)=200Hz
-
-FOR PULSE AT 700
-
-TON = 3.5ms
-TOFF=1.5ms
-TOTAL TIME = 5ms
-FREQUENCY = 1/(TOTAL TIME)=200Hz
 
 
+# FOR PULSE AT 500
+
+![Screenshot 2024-11-05 082455](https://github.com/user-attachments/assets/11c95597-fdcc-4890-b34a-10a678d70a41)
+
+```
+TON = 3 x 10 x 10^-6
+    = 0.00003
+TOFF=0.00003
+TOTAL TIME = TON + TOFF
+           = 0.00003+0.00003 
+           = 0.00006
+FREQUENCY = 1/(TOTAL TIME) 
+          =1/0.00006 
+          = 16666.7
+DUTY CYCLE = TON /(TON+TOFF)
+           = 0.00003/0.00006
+           = 0.5
+      IN % =0.5*100 
+           = 50 %
+```
+
+# FOR PULSE AT 700
+
+![Screenshot 2024-11-06 092923](https://github.com/user-attachments/assets/0b78741e-28d3-46d5-bd2c-f662ad87637e)
+
+```
+TON = 4 x 10 x 10^-6
+    = 0.00004
+TOFF= 2 x 10 x 10^-6
+    = 0.00002
+TOTAL TIME = TON + TOFF
+           = 0.00004+0.00002
+           = 0.00006
+FREQUENCY = 1/(TOTAL TIME)
+          = 16666.7
+DUTY CYCLE = TON /(TON+TOFF)
+           = 0.00004/0.00006
+           = 0.7
+      IN % =0.7*100 
+           = 70 %
+```
+
+# FOR PULSE AT 900
+
+![Screenshot 2024-11-06 133102](https://github.com/user-attachments/assets/4d1ca5c4-4ae8-4a5a-a608-d575ae0251ab)
+
+```
+TON = 1 x 50 x 10^-6
+    = 0.00005
+TOFF= 0.1 x 50 x 10^-6
+    = 0.000005
+TOTAL TIME = TON + TOFF
+           = 0.00005 + 0.000005
+           = 0.000055
+FREQUENCY = 1/(TOTAL TIME)
+          = 18181.82
+DUTY CYCLE = TON /(TON+TOFF)
+           = 0.00005/0.000055
+           = 0.9
+      IN % =0.9*100 
+           = 90 %
+```
 ## Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated 
